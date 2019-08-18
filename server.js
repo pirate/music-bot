@@ -1,6 +1,3 @@
-const fs = require("fs");
-const login = require("facebook-chat-api");
-
 const messenger = require("./sources/messenger.js");
 
 const spotify = require("./parsers/spotify.js");
@@ -65,7 +62,7 @@ function parseMusicURL(url) {
 
 // ********************************* Main **************************************
 
-export function startBots() {
+function startBots() {
     messenger.Bot(handleMessage)
 
     // imessage.Bot(handleMessage)

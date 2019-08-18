@@ -21,7 +21,7 @@ const handleSongURL = (url) => {
 
 
 
-export const URL_PATTERNS = [
+exports.URL_PATTERNS = [
     [PLAYLIST_URL_REGEX, handlePlaylistURL],
     [ALBUM_URL_REGEX, handleAlbumURL],
     [SONG_URL_REGEX, handleSongURL],

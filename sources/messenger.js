@@ -1,21 +1,33 @@
+const fs = require("fs");
+const login = require("facebook-chat-api");
 
-const FB_EMAIL = process.env.FB_EMAIL
-const FB_PASS = process.env.FB_PASS
-const CACHE_FILE = 'session_cache.json'
+const SECRETS_FILE = './secrets.env'
+const CACHE_FILE = './session_cache.json'
 
 // **************************** Bot Boilerplate ********************************
+
+function loadConfig(path) {
+    const config = {}
+    for (const line of fs.readFileSync(path, 'utf8').split('\n')) {
+        const [key, value] = line.split('=')
+        if (key.length) {
+            config[key] = value
+        }
+    }
+    return config
+}
 
 function getBotCredentials() {
     try {
         const cached_session = fs.readFileSync(CACHE_FILE, 'utf8')
         return {appState: JSON.parse(cached_session)}
     } catch(e) {
-        if (!FB_PASS || !FB_EMAIL) {
-            // Hint: you can store these in secrets.env and source that file before running
-            console.log('You must define FB_EMAIL=... FB_PASS=... as environment variables')
+        const config = loadConfig(SECRETS_FILE)
+        if (!config.FB_PASS || !config.FB_EMAIL) {
+            console.log('You must define FB_EMAIL=... FB_PASS=... in:', SECRETS_FILE)
             throw 'Secrets not configured.'
         }
-        return {email: FB_EMAIL, password: FB_PASS}
+        return {email: config.FB_EMAIL, password: config.FB_PASS}
     }
 }
 
@@ -51,7 +63,7 @@ function startBotListening(api, handleMessage) {
 }
 
 
-export function Bot(handleMessage) {
+exports.Bot = function(handleMessage) {
     login(getBotCredentials(), (err, api) => {
         if(err) return console.error(err);
 
