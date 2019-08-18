@@ -1,10 +1,10 @@
 
 // https://soundcloud.com/fandangoberlin/slipperycrisps
 const PLAYLIST_URL_REGEX = /soundcloud\.com\/playlist\/.+/g
-
 // TODO
 const ALBUM_URL_REGEX = /soundcloud\.com\/album\/.+/g
 const SONG_URL_REGEX = /soundcloud\.com\/song\/.+/g
+
 
 
 const handlePlaylistURL = (url) => {
@@ -20,7 +20,8 @@ const handleSongURL = (url) => {
 }
 
 
-const URL_PATTERNS = [
+
+export const URL_PATTERNS = [
     [PLAYLIST_URL_REGEX, handlePlaylistURL],
     [ALBUM_URL_REGEX, handleAlbumURL],
     [SONG_URL_REGEX, handleSongURL],

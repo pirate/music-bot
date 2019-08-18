@@ -5,12 +5,12 @@ const spotify = require("./parsers/spotify.js");
 const soundcloud = require("./parsers/soundcloud.js");
 const applemusic = require("./parsers/applemusic.js");
 
+
 const FB_EMAIL = process.env.FB_EMAIL
 const FB_PASS = process.env.FB_PASS
 const CACHE_FILE = 'session_cache.json'
 
 const URL_REGEX = /(https?:\/\/[^\s]+)/g
-
 const PARSEABLE_URL_PATTERNS = [
     ...spotify.URL_PATTERNS,
     ...soundcloud.URL_PATTERNS,
